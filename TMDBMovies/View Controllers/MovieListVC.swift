@@ -76,10 +76,26 @@ class MovieListVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if(section == 2){
+            return 40
+        }
         return 5
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 2 {
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 40))
+                    
+                    let label = UILabel()
+                    label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
+                    label.text = "Most Popular"
+            label.font = .systemFont(ofSize: 17, weight: .medium)
+            label.textColor = .white
+                    
+                    headerView.addSubview(label)
+                    
+                    return headerView
+        }
         return UIView()
     }
     
