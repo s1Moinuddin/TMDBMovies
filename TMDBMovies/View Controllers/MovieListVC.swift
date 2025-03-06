@@ -29,6 +29,7 @@ class MovieListVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         viewModel.reloadTableView = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
+                self?.tableView.refreshControl?.endRefreshing()
             }
         }
         
@@ -43,6 +44,19 @@ class MovieListVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: CategoryTableViewCell.reuseIdentifier)
         tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: MoviesTableViewCell.reuseIdentifier)
         tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: MoviesTableViewCell.reuseIdentifierPopular)
+        
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self,
+                                        action: #selector(pulldown), for: .valueChanged)
+        tableView.refreshControl?.tintColor = .white
+        // to fix glitch of refresh control while using prefersLargeTitles to true
+        // table view top contraint with spuerView 
+        tableView.contentInsetAdjustmentBehavior = .always
+    }
+    
+    @objc func pulldown() {
+        viewModel.page = viewModel.page == 2 ? 1 : 2
+        viewModel.getCategories()
     }
     
     // Table view data source methods

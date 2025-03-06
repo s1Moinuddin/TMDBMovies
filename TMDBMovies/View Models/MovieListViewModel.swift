@@ -14,6 +14,8 @@ class MovieListViewModel {
     var movies: [Movie] = []
     var popularMovies: [Movie] = []
     var filteredPopularMovies: [Movie] = []
+    var page: Int = 1
+    private var previousPage: Int = 1
     
     var reloadTableView: (() -> Void)?
     
@@ -59,7 +61,7 @@ class MovieListViewModel {
             SVProgressHUD.dismiss()
             return
         }
-        let endpoint = MovieEndPoint.movieWithCategory(categoryId: categoryId, page: 1)
+        let endpoint = MovieEndPoint.movieWithCategory(categoryId: categoryId, page: self.page)
         APIClient.shared.objectAPICall(apiEndPoint: endpoint, modelType: MovieResponse.self) { [weak self] (response) in
             switch response {
             case .success(let value):
@@ -85,17 +87,18 @@ class MovieListViewModel {
             self.reloadTableView?()
             return
         }
-        guard popularMovies.isEmpty else {
+        guard popularMovies.isEmpty || page != previousPage else {
             filteredPopularMovies = popularMovies.filter({$0.genreIds.contains(categoryId)})
             self.reloadTableView?()
             return
         }
-        let endpoint = MovieEndPoint.popularMovieswithCategory(page: 1)
+        let endpoint = MovieEndPoint.popularMovieswithCategory(page: self.page)
         APIClient.shared.objectAPICall(apiEndPoint: endpoint, modelType: MovieResponse.self) { [weak self] (response) in
             switch response {
             case .success(let value):
                 SVProgressHUD.dismiss()
                 DLog("success \(value.movies.first?.title ?? "N/A")")
+                self?.previousPage = self?.page ?? 1
                 self?.popularMovies = value.movies
                 self?.filteredPopularMovies = value.movies.filter({$0.genreIds.contains(categoryId)})
                 self?.reloadTableView?()
