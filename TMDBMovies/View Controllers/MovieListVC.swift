@@ -11,6 +11,8 @@ import SVProgressHUD
 class MovieListVC: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
+    
+    let viewModel = MovieListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,7 @@ class MovieListVC: UIViewController {
         self.view.backgroundColor = .purple.withAlphaComponent(0.7)
         self.tableView.backgroundColor = .black.withAlphaComponent(0.8)
         
+        viewModel.getCategories()
         
     }
 

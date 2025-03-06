@@ -57,7 +57,7 @@ class APIClient {
         configuration.timeoutIntervalForResource = 120
         
         // Authorization header added in AFRequestInterceptor class
-        let afInterceptor = AFRequestInterceptor(token: "")
+        let afInterceptor = AFRequestInterceptor(token: accessToken)
         
         #if DEBUG
         return Session(configuration: configuration, interceptor: afInterceptor, eventMonitors: [AFRequestMonitor()])
