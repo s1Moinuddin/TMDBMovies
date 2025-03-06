@@ -12,6 +12,8 @@ class MovieListViewModel {
     var categories: [MovieCategory] = []
     var selectedCategory: MovieCategory?
     
+    var reloadTableView: (() -> Void)?
+    
     func getCategories() {
         SVProgressHUD.show()
         let endpoint = MovieEndPoint.categories
@@ -21,6 +23,9 @@ class MovieListViewModel {
                 SVProgressHUD.dismiss()
                 DLog("success \(value.categories.first?.name ?? "N/A")")
                 self?.categories = value.categories
+                self?.selectedCategory = self?.categories.first
+                self?.fetchMovies(for: self?.selectedCategory?.id)
+                
             case .failure((let code, let data, let err)):
                 SVProgressHUD.dismiss()
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
@@ -29,6 +34,13 @@ class MovieListViewModel {
                 DLog("error = \(err.localizedDescription)")
             }
         }
-        
     }
+    
+    func fetchMovies(for categoryId: Int?) {
+        // Fetch movies for selected category and popular movies
+        // Example:
+        // Update self.movies and self.popularMovies
+        self.reloadTableView?()
+    }
+    
 }
