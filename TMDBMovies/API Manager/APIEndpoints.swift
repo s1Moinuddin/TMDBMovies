@@ -49,7 +49,7 @@ enum MovieEndPoint: Endpoint {
     
     case categories
     case movieWithCategory(categoryId:Int, page:Int)
-    case popularMovieswithCategory(categoryId:Int, page:Int)
+    case popularMovieswithCategory(page:Int)
     
     var method: HTTPMethod {
         switch self {
@@ -80,8 +80,8 @@ enum MovieEndPoint: Endpoint {
         case .movieWithCategory(let categoryID, let page):
             return ["with_genres": categoryID, "page": page,
                     "include_adult": false, "include_video": false, "sort_by": "popularity.desc"]
-        case .popularMovieswithCategory(let categoryID, let page):
-            return ["with_genres": categoryID, "page": page]
+        case .popularMovieswithCategory(let page):
+            return ["page": page]
         }
     }
 }

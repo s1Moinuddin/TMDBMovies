@@ -42,6 +42,7 @@ class MovieListVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: CategoryTableViewCell.reuseIdentifier)
         tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: MoviesTableViewCell.reuseIdentifier)
+        tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: MoviesTableViewCell.reuseIdentifierPopular)
     }
     
     // Table view data source methods
@@ -65,10 +66,12 @@ class MovieListVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             return cell
         }else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MoviesTableViewCell.reuseIdentifier, for: indexPath) as! MoviesTableViewCell
-            cell.configure(with: viewModel.movies)
+            cell.configure(with: viewModel.movies, reuseIdentifier: PosterCollectionViewCell.reuseIdentifier)
             return cell
         }else {
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: MoviesTableViewCell.reuseIdentifierPopular, for: indexPath) as! MoviesTableViewCell
+            cell.configure(with: viewModel.filteredPopularMovies, reuseIdentifier: PosterCollectionViewCell.reuseIdentifierPopular)
+            return cell
         }
     }
     

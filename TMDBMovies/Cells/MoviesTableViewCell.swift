@@ -10,9 +10,11 @@ import Kingfisher
 
 class MoviesTableViewCell: UITableViewCell {
     static let reuseIdentifier = "MoviesTableViewCell"
+    static let reuseIdentifierPopular = "PopularMoviesTableViewCell"
     
     private var collectionView: UICollectionView!
     var movies: [Movie] = []
+    var reuseIdentifierForCollectionView: String = ""
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -46,7 +48,8 @@ class MoviesTableViewCell: UITableViewCell {
         collectionView.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.reuseIdentifier)
     }
     
-    func configure(with movies: [Movie]) {
+    func configure(with movies: [Movie], reuseIdentifier: String) {
+        self.reuseIdentifierForCollectionView = reuseIdentifier
         self.movies = movies
         collectionView.reloadData()
     }

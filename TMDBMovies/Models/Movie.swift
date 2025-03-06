@@ -11,11 +11,13 @@ struct Movie: Decodable, CustomStringConvertible {
     var id: Int
     var title: String
     var imagePath: String
+    var genreIds: [Int] = []
 
     enum CodingKeys: String, NestableCodingKey {
         case id
         case title = "title"
         case imagePath = "poster_path"
+        case genreIds = "genre_ids"
     }
 
     var description: String {
