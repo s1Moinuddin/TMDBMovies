@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A124D5FF2D799A7300408A62 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A124D5FE2D799A7300408A62 /* Alamofire */; };
+		A124D61D2D79C13D00408A62 /* SVProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = A124D61C2D79C13D00408A62 /* SVProgressHUD */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A124D61D2D79C13D00408A62 /* SVProgressHUD in Frameworks */,
 				A124D5FF2D799A7300408A62 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +86,7 @@
 			name = TMDBMovies;
 			packageProductDependencies = (
 				A124D5FE2D799A7300408A62 /* Alamofire */,
+				A124D61C2D79C13D00408A62 /* SVProgressHUD */,
 			);
 			productName = TMDBMovies;
 			productReference = A124D5C02D79950B00408A62 /* TMDBMovies.app */;
@@ -115,6 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				A124D5FD2D799A7300408A62 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A124D61B2D79C13D00408A62 /* XCRemoteSwiftPackageReference "SVProgressHUD" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A124D5C12D79950B00408A62 /* Products */;
@@ -356,6 +360,14 @@
 				version = 5.1.0;
 			};
 		};
+		A124D61B2D79C13D00408A62 /* XCRemoteSwiftPackageReference "SVProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVProgressHUD/SVProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -363,6 +375,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A124D5FD2D799A7300408A62 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		A124D61C2D79C13D00408A62 /* SVProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A124D61B2D79C13D00408A62 /* XCRemoteSwiftPackageReference "SVProgressHUD" */;
+			productName = SVProgressHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

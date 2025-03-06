@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class MovieListVC: UIViewController {
     
@@ -19,7 +20,6 @@ class MovieListVC: UIViewController {
         self.navigationItem.title = "Movies"
         self.view.backgroundColor = .purple.withAlphaComponent(0.7)
         self.tableView.backgroundColor = .black.withAlphaComponent(0.8)
-        
         
         
     }
