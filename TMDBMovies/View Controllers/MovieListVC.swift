@@ -27,7 +27,9 @@ class MovieListVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         
         viewModel.getCategories()
         viewModel.reloadTableView = { [weak self] in
-            self?.tableView.reloadData()
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
         }
         
     }
@@ -39,11 +41,12 @@ class MovieListVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: CategoryTableViewCell.reuseIdentifier)
+        tableView.register(MoviesTableViewCell.self, forCellReuseIdentifier: MoviesTableViewCell.reuseIdentifier)
     }
     
     // Table view data source methods
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.categories.count > 1 ? 1 : 0
+        return viewModel.getTableCellCount()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,15 +58,27 @@ class MovieListVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             let cell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.reuseIdentifier, for: indexPath) as! CategoryTableViewCell
             cell.configure(with: viewModel.categories, selectedCategory: viewModel.selectedCategory)
             cell.categorySelected = { [weak self] selectedCategory in
+                DLog("selected category Id = \(selectedCategory.id), name = \(selectedCategory.name)")
                 self?.viewModel.selectedCategory = selectedCategory
                 self?.viewModel.fetchMovies(for: selectedCategory.id)
             }
+            return cell
+        }else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: MoviesTableViewCell.reuseIdentifier, for: indexPath) as! MoviesTableViewCell
+            cell.configure(with: viewModel.movies)
             return cell
         }else {
             return UITableViewCell()
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
     
 }
 

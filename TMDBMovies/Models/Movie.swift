@@ -14,11 +14,23 @@ struct Movie: Decodable, CustomStringConvertible {
 
     enum CodingKeys: String, NestableCodingKey {
         case id
-        case title = "original_title"
+        case title = "title"
         case imagePath = "poster_path"
     }
 
     var description: String {
         "Movie(title: \(title), imagePath: \(imagePath))"
+    }
+}
+
+struct MovieResponse: Decodable {
+    let movies: [Movie]
+    let page: Int
+    let totalPages: Int
+    
+    enum CodingKeys: String, NestableCodingKey {
+        case movies = "results"
+        case page
+        case totalPages = "total_pages"
     }
 }
